@@ -2,51 +2,43 @@
 <html>
 <body>
 
-<h2>Cross Domain Cookie Demo with all in one Lib</h2>
+<h2>Cookie Tool</h2>
 <h3 id = "hostname"></h3>
 
-<p></p>
 
-<p>Cookies from other site</p>
-<input type="button" onClick = "getCookieUsingLib()" value = "Get Cookies using corsService">
+<p>Enter New Cookies Below</p>
+<textarea id="codeInput" rows="45" cols="80">
+crsCookieManager.cookieData = {
+  env: "POC",
+  cookies: [
+    {
+        name: "cookiePref",
+        value: "FUN"
+    },
+    {
+        name: "cookiePref2",
+        value: "FUNddfd"
+    }
+  ]
+};
+  
+crsCookieManager.updateCookie()
+</textarea>
 <br>
+<input type="button" onClick = "executeCode()" value = "Execute">
 
-<textarea id="cookieView" rows="7" cols="60" ></textarea>
-
-<br><br>
-<p>Enter New Cookie Name Below</p>
-<textarea id="newCookieName" rows="2" cols="60"></textarea>
-<br>
-<p>Enter New Cookie Value Below</p>
-<textarea id="newCookieValue" rows="2" cols="60"></textarea>
-<br>
-<input type="button" onClick = "setCookieUsingLib()" value = "Set Cookies using corsService">
-
-</body>
-</html>
-<!-- 
-  after including script below, the following functions are available:
-  getAllCookiesRaw()
-  getCookie(name)
-  setCookie(name, value)
- -->
 <script type="text/javascript" src = "https://www.x-r-c.com/corsAccessor.js"></script>
+
 <script>
-document.getElementById("hostname").innerHTML = "host name = " + window.location.hostname + ":" + window.location.port;
-let cookieView = document.getElementById("cookieView");
-let newCookieName = document.getElementById("newCookieName")
-let newCookieValue = document.getElementById("newCookieValue")
-
-async function getCookieUsingLib() {
-  let c = await getAllCookiesRaw();
-  cookieView.value = c;
-}
-
-function setCookieUsingLib() {
-  let name = newCookieName.value;
-  let value = newCookieValue.value;
-  setCookie(name, value);
-}
+  document.getElementById("hostname").innerHTML = "This page's host name is: " + window.location.hostname + ":" + window.location.port;
+   
+  function executeCode() {
+    let code = document.getElementById("codeInput").value;
+    eval(code);
+  }
 
 
 </script>
+</body>
+</html>
+
